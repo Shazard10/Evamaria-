@@ -36,7 +36,7 @@ async def save_group(bot, message):
                 pass
             await bot.leave_chat(message.chat.id)
             return
-                buttons = [[
+        buttons = [[
             InlineKeyboardButton('𝘏𝘌𝘓𝘗', url=f"https://t.me/{temp.U_NAME}?start=help"),
             InlineKeyboardButton('𝙈𝙊𝙑𝙄𝙀𝙎 𝙂𝙍𝙊𝙐𝙋', url='https://t.me/new_movies_group_2021')
         ]]
