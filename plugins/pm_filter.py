@@ -147,7 +147,7 @@ async def advantage_spoll_choker(bot, query):
         return await query.answer("★彡Hey Bro, നിനക്ക് ഈ സിനിമ വേണമെങ്കിൽ നീ തന്നെ റിക്വസ്റ്റ് ചെയ്യണം🤦‍♂\n\nʀᴇǫᴜᴇsᴛ ʏᴏᴜʀ ᴏᴡɴ 💕", show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
-    movies = SPELL_CHECK.get(query.message.reply_to_message.message_id)
+    movies = SPELL_CHECK.get(query.message.reply_to_message.id)
     if not movies:
         return await query.answer("You are clicking on an old button which is expired.", show_alert=True)
     movie = movies[(int(movie_))]
