@@ -41,7 +41,7 @@ async def give_filter(client, message):
 async def next_page(bot, query):
     ident, req, key, offset = query.data.split("_")
     if int(req) not in [query.from_user.id, 0]:
-        return await query.answer("oKda", show_alert=True)
+        return await query.answer(f"★彡Hey {query.from_user.first_name}彡★ ഇത് നിന്റെ അല്ല ....😎", show_alert=True)
     try:
         offset = int(offset)
     except:
@@ -64,7 +64,7 @@ async def next_page(bot, query):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}] {file.file_name}", callback_data=f'files#{file.file_id}'
+                    text=f"▫ {get_size(file.file_size)} ▸ {file.file_name}", callback_data=f'files#{file.file_id}'
                 ),
             ]
             for file in files
@@ -82,6 +82,14 @@ async def next_page(bot, query):
             ]
             for file in files
         ]
+        
+    btn.insert(0, 
+        [
+            InlineKeyboardButton(f'✪ ᴛɪᴘs ✪', 'movieinfo'),
+            InlineKeyboardButton(f'⍟ ᴍᴏᴠɪᴇ ⍟', 'movss'),
+            InlineKeyboardButton(f'✪ ꜱᴇʀɪᴇꜱ ✪', 'moviis')
+        ]
+    )
 
     if 0 < offset <= 10:
         off_set = 0
@@ -91,22 +99,38 @@ async def next_page(bot, query):
         off_set = offset - 10
     if n_offset == 0:
         btn.append(
-            [InlineKeyboardButton("⏪ BACK", callback_data=f"next_{req}_{key}_{off_set}"),
-             InlineKeyboardButton(f"📃 Pages {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}",
+            [InlineKeyboardButton("🔙ʙᴀᴄᴋ", callback_data=f"next_{req}_{key}_{off_set}"),
+             InlineKeyboardButton(f"⎙ ᴘᴀɢᴇs {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}",
                                   callback_data="pages")]
         )
+        btn.append(
+            [InlineKeyboardButton("〄 𝙷𝙾𝚆 𝚃𝙾 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 𝙼𝙾𝚅𝙸𝙴𝚂 〄",callback_data="seriess")]
+        )
+        btn.insert(0,
+            [InlineKeyboardButton(f"۞ {search} ۞",callback_data="neosub")]
+        )          
     elif off_set is None:
         btn.append(
-            [InlineKeyboardButton(f"🗓 {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}", callback_data="pages"),
-             InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{req}_{key}_{n_offset}")])
+            [InlineKeyboardButton(f" {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}", callback_data="pages"),
+             InlineKeyboardButton("ɴᴇxᴛ➪", callback_data=f"next_{req}_{key}_{n_offset}")])
+        btn.append([InlineKeyboardButton("〄 𝙷𝙾𝚆 𝚃𝙾 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 𝙼𝙾𝚅𝙸𝙴𝚂 〄",callback_data="seriess")])
+        btn.insert(0,
+            [InlineKeyboardButton(f"۞ {search} ۞",callback_data="neosub")]
+        )                     
     else:
         btn.append(
             [
-                InlineKeyboardButton("⏪ BACK", callback_data=f"next_{req}_{key}_{off_set}"),
-                InlineKeyboardButton(f"🗓 {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}", callback_data="pages"),
-                InlineKeyboardButton("NEXT ⏩", callback_data=f"next_{req}_{key}_{n_offset}")
+                InlineKeyboardButton("🔙ʙᴀᴄᴋ", callback_data=f"next_{req}_{key}_{off_set}"),
+                InlineKeyboardButton(f" {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)}", callback_data="pages"),
+                InlineKeyboardButton("Nɴᴇxᴛ➪", callback_data=f"next_{req}_{key}_{n_offset}")
             ],
         )
+        btn.append(
+            [InlineKeyboardButton("〄 𝙷𝙾𝚆 𝚃𝙾 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 𝙼𝙾𝚅𝙸𝙴𝚂 〄",callback_data="seriess")]
+        )
+        btn.insert(0,
+            [InlineKeyboardButton(f"۞ {search} ۞",callback_data="neosub")]
+        )         
     try:
         await query.edit_message_reply_markup(
             reply_markup=InlineKeyboardMarkup(btn)
@@ -120,7 +144,7 @@ async def next_page(bot, query):
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("okDa", show_alert=True)
+        return await query.answer("★彡Hey Bro, നിനക്ക് ഈ സിനിമ വേണമെങ്കിൽ നീ തന്നെ റിക്വസ്റ്റ് ചെയ്യണം🤦‍♂\n\nʀᴇǫᴜᴇsᴛ ʏᴏᴜʀ ᴏᴡɴ 💕", show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
     movies = SPELL_CHECK.get(query.message.reply_to_message.id)
@@ -135,10 +159,12 @@ async def advantage_spoll_choker(bot, query):
             k = (movie, files, offset, total_results)
             await auto_filter(bot, query, k)
         else:
-            k = await query.message.edit('This Movie Not Found In DataBase')
-            await asyncio.sleep(10)
+            btn = [[
+            InlineKeyboardButton('⌬ 𝗥𝗘𝗔𝗦𝗢𝗡𝗦 ⌬', callback_data='reqst11')
+        ]]        
+            k=await query.message.edit('<b>✯ നിങ്ങൾ ചോദിച്ച മൂവി റിലീസ് ആയിട്ടുണ്ടോ..? </b>\n\n✯ 𝗜𝗳 𝗶𝘁 𝗶𝘀 , 𝗪𝗲 𝗪𝗶𝗹𝗹 𝗨𝗽𝗹𝗼𝗮𝗱 𝗜𝘁⚡️\n\n<b>📯ɴʙ: Cʟɪᴄᴋ Bᴇʟᴏᴡ Rᴇᴀsᴏɴs Bᴜᴛᴛᴏɴ</b>', reply_markup=InlineKeyboardMarkup(btn))    
+            await asyncio.sleep(60)
             await k.delete()
-
 
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
