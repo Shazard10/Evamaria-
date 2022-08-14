@@ -103,7 +103,7 @@ async def next_page(bot, query):
         )          
     elif off_set is None:
         btn.append(
-            [InlineKeyboardButton(f"【 {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)} 】", callback_data="pages"),
+            [InlineKeyboardButton(f"【 {math.ceil(int(offset) - 10) + 1} - {math.ceil(total - 10)} 】", callback_data="pages"),
              InlineKeyboardButton("ɴᴇxᴛ➪", callback_data=f"next_{req}_{key}_{n_offset}")])
         btn.append([InlineKeyboardButton("〄 𝙷𝙾𝚆 𝚃𝙾 𝙳𝙾𝚆𝙽𝙻𝙾𝙰𝙳 𝙼𝙾𝚅𝙸𝙴𝚂 〄",callback_data="seriess")])
         btn.insert(0,
@@ -113,7 +113,7 @@ async def next_page(bot, query):
         btn.append(
             [
                 InlineKeyboardButton("⇦ʙᴀᴄᴋ", callback_data=f"next_{req}_{key}_{off_set}"),
-                InlineKeyboardButton(f"【 {math.ceil(int(offset) / 10) + 1} / {math.ceil(total / 10)} 】", callback_data="pages"),
+                InlineKeyboardButton(f"【 {math.ceil(int(offset) - 10) + 1} - {math.ceil(total - 10)} 】", callback_data="pages"),
                 InlineKeyboardButton("ɴᴇxᴛ➪", callback_data=f"next_{req}_{key}_{n_offset}")
             ],
         )
@@ -710,7 +710,7 @@ async def auto_filter(client, msg, spoll=False):
         BUTTONS[key] = search
         req = message.from_user.id if message.from_user else 0
         btn.append(
-            [InlineKeyboardButton(text=f"【 1/{math.ceil(int(total_results) / 10)} 】", callback_data="pages"),
+            [InlineKeyboardButton(text=f"【 1-{math.ceil(int(total_results) / 10)} 】", callback_data="pages"),
              InlineKeyboardButton(text="ɴᴇxᴛ➪", callback_data=f"next_{req}_{key}_{offset}")]
         )
         btn.append(
